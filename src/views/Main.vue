@@ -1,12 +1,23 @@
 <template>
   <div>
-    <div>
-      방명록
+    <div id="bar">
+      <router-link
+        id="logo"
+        to="Main"
+        class="link"
+      >
+        방명록
+      </router-link>
     </div>
-    <textarea />
-    sfsdf
-    <div>
-      여기에 글이 보일것이다!!!
+    <div class="list_wrapper">
+      <textarea
+        id="textarea"
+        rows="10"
+        cols="50"
+      />
+      <button class="btn">
+        작성
+      </button>
       <ul>
         <li
           v-for="(item, key) in list"
@@ -15,6 +26,7 @@
           {{ item.title }}
         </li>
       </ul>
+      </button>
     </div>
   </div>
 </template>
@@ -49,5 +61,52 @@ export default {
 </script>
 
 <style>
+#bar {
+  width:100%;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  background-color: #41b883;
+}
+#bar .link{
+  color:white;
+  font-size: 20px;
+  text-decoration: none;
+  display:block;
+  margin: auto;
+}
 
+.list_wrapper{
+  width: calc(100% - 60px);
+  margin: auto;
+}
+.list_wrapper ul {
+  margin-top: 30px;
+}
+.list_wrapper ul li{
+  list-style: none;
+  line-height: 50px;
+  font-size: 20px;
+}
+
+#textarea {
+  display:block;
+  margin: auto;
+  resize: none;
+  margin-top: 30px;
+  width: 100%;
+  height: 150px;
+  border: 1px solid #ececec;
+  box-sizing: border-box;
+  font-size: 20px;
+}
+
+.btn{
+    width:100%;
+    height:50px;
+    background-color: #41b883;
+    color:white;
+    font-size: 20px;
+    margin-top:30px;  
+}
 </style>

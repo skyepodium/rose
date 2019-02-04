@@ -10,7 +10,7 @@
       :type="type"
       class="CommonInput"
       :placeholder="placeholder"
-      @input="updateSelf($event.target.value)"
+      @input="$emit('input', $event.target.value)"
     >
   </div>
 </template>
@@ -27,10 +27,14 @@ export default {
       type: String,
       default: null
     },
+    type: {
+      type: String,
+      default: null
+    }
   },
   methods: {
     updateSelf (val) {
-      this.$emit('input', val)
+      this.$emit('input', 'a')
     }
   }  
 }

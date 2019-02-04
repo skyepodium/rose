@@ -14,10 +14,6 @@
         class="login"
         @click="postData"
       >
-        <input
-          type="text"
-          @input="handle($event.target.value)"
-        >
         로그인
       </button>
     </div>
@@ -41,9 +37,6 @@ export default {
         this.getData()
     },
     methods: {
-        handle(val) {
-            console.log(val)
-        },
         getData() {
             axios.get('https://api.hnpwa.com/v0/news/1.json')
             .then(({data}) => {

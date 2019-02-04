@@ -6,7 +6,9 @@ Vue.config.productionTip = false
 
 import Input from './components/common/Input.vue'
 import AppBar from './components/common/AppBar.vue'
+
 Vue.component('common-input', Input)
+
 Vue.component('common-AppBar', AppBar)
 //Vue.use(axios)
 
