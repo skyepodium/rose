@@ -36,18 +36,8 @@ export default {
         }
     },
     created () {
-        this.getData()
     },
     methods: {
-        getData() {
-            axios.get('https://api.hnpwa.com/v0/news/1.json')
-            .then(({data}) => {
-                console.log(data)
-            })
-            .catch(({message}) => {
-                console.log(message)
-            })
-        },
         postData() {
             let body = {
                 email: this.user.email,

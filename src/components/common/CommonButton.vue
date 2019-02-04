@@ -18,14 +18,3 @@ export default {
     },
 }
 </script>
-
-<style>
-.btn{
-    width:100%;
-    height:50px;
-    background-color: #41b883;
-    color:white;
-    font-size: 20px;
-    margin-top:30px;  
-}
-</style>

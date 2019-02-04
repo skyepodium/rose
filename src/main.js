@@ -12,6 +12,9 @@ Vue.component('common-input', CommonInput)
 Vue.component('common-bar', CommonBar)
 Vue.component('common-button', CommonButton)
 
+import mixin from './mixin/mixin.js'
+Vue.mixin(mixin); 
+
 new Vue({
   render: h => h(App),
   router,
