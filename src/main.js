@@ -4,13 +4,13 @@ import { router } from './routes/index.js'
 //import axios from 'axios'
 Vue.config.productionTip = false
 
-import Input from './components/common/Input.vue'
-import AppBar from './components/common/AppBar.vue'
+import CommonInput from './components/common/CommonInput.vue'
+import CommonBar from './components/common/CommonBar.vue'
+import CommonButton from './components/common/CommonButton.vue'
 
-Vue.component('common-input', Input)
-
-Vue.component('common-AppBar', AppBar)
-//Vue.use(axios)
+Vue.component('common-input', CommonInput)
+Vue.component('common-bar', CommonBar)
+Vue.component('common-button', CommonButton)
 
 new Vue({
   render: h => h(App),

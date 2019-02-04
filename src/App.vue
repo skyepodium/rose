@@ -3,7 +3,7 @@
     <router-view />
   </div>
 </template>
-
+<style src="./static/common.css"></style>
 <script>
 export default {
   name: 'App',

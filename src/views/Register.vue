@@ -1,6 +1,6 @@
 <template>
   <div>
-    <common-bar title="이메일로 로그인하기" />      
+    <common-bar title="이메일로 회원가입" />      
     <div class="wrapper">
       <common-input
         v-model="user.email"
@@ -11,14 +11,17 @@
         placeholder="비밀번호"
         type="password"
       />
+      <common-input 
+        v-model="user.password2"
+        placeholder="비밀번호 확인"
+        type="password"
+      />      
       <common-button
-        title="로그인"
-        @click="postData"
+        title="회원가입"
+        @click="btnClick"
       />
-      <router-link to="Register">
-        회원가입
-      </router-link>
-    </div>
+      <router-link to="Register" />
+    </div>      
   </div>
 </template>
 
@@ -26,34 +29,25 @@
 import axios from 'axios'
 
 export default {
-    name: 'Login',
+    name: 'Register',
     data() {
         return {
             user: {
                 email: null,
                 password: null,
+                password2: null
             }
         }
     },
-    created () {
-        this.getData()
-    },
     methods: {
-        getData() {
-            axios.get('https://api.hnpwa.com/v0/news/1.json')
-            .then(({data}) => {
-                console.log(data)
-            })
-            .catch(({message}) => {
-                console.log(message)
-            })
-        },
-        postData() {
+        btnClick () {
             let body = {
                 email: this.user.email,
-                password: this.user.password
+                password: this.user.password,
+                password2: this.user.password2
             }
-            axios.post('/api/login', body)
+            console.log(this.user.email)
+            axios.post('/api/register', body)
             .then(({data}) => {
                 console.log(data)
                 if(data.result) {
@@ -64,6 +58,6 @@ export default {
                 console.log(message)
             })
         }
-    }
+    } 
 }
 </script>
