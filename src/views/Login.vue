@@ -13,7 +13,11 @@
       />
       <common-button
         title="로그인"
-        @click="postData"
+        @click="btnClick"
+      />
+      <common-error
+        :flag="error.flag"
+        :message="error.message"
       />
       <router-link to="Register">
         회원가입
@@ -29,6 +33,10 @@ export default {
     name: 'Login',
     data() {
         return {
+            error: {
+                flag: false,
+                message: '',
+            },
             user: {
                 email: null,
                 password: null,
@@ -51,9 +59,26 @@ export default {
                 }
             })
             .catch(({message}) => {
+                this.error.flag = true;
+                this.error.message = message
                 console.log(message)
             })
-        }
+        },
+        btnClick() {
+            if(!this.vali(this.user.email, 'email')) {
+                this.error.flag = true;
+                this.error.message = '이메일을 형식에 맞게 입력해주세요'
+                return false
+            }
+
+            if(!this.vali(this.user.password, 'password')) {
+                this.error.flag = true;
+                this.error.message = '비밀번호를 확인해주세요'
+                return false
+            }
+
+            this.postData()
+        },
     }
 }
 </script>
