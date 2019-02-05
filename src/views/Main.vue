@@ -1,22 +1,39 @@
 <template>
   <div>
-    <common-bar title="방명록" />
+    <common-bar
+      title="방명록"
+      sub
+    />
     <div class="list_wrapper">
       <textarea
         id="textarea"
-        rows="10"
-        cols="50"
+        v-model="contents"
+      />
+      <common-error
+        :message="error.message"
+        :flag="error.flag"
       />
       <common-button
         :title="btnMessage"
         @click="btnClick"
       />
+      <div class="post_word_all">
+        <div class="post_word">
+          포스트
+        </div>
+      </div>
       <ul>
         <li
           v-for="(item, key) in list"
           :key="key"
         >
-          {{ item.title }}
+          <div class="contents">
+            {{ item.contents }}
+          </div>
+
+          <div class="sub">
+            {{ item.username }} | 2019년 2월
+          </div>
         </li>
       </ul>
     </div>
@@ -30,10 +47,13 @@ export default {
     name:'Main',
     data() {
       return {
+        error: {
+          flag: false,
+          message: null
+        },
+        contents: null,
         btnMessage: '로그인하고 작성하기',
-        list: [
-
-        ]
+        list: []
       }
     },
     created() {
@@ -52,9 +72,10 @@ export default {
         }
       },
       getData() {
-        axios.get('https://api.hnpwa.com/v0/news/1.json')
+        axios.get('/api/postGet')
         .then(({data}) => {
-          this.list = data
+            console.log(data)
+            this.list = data.list
           })
         .catch(({message}) => {
             console.log(message)
@@ -63,21 +84,27 @@ export default {
       btnClick () {
         let user = window.sessionStorage.getItem('user')
         if(this.emptyCheck(user)){
-          this.postData()
+          if(this.emptyCheck(this.contents)){
+            this.postData()
+          }else{
+            this.error.flag = true
+            this.error.message = '내용을 입력해주세요'
+          }
         }else{
           this.$router.push('Login')
         }
       },
-      postdata () {
+      postData () {
         let body = {
-          email: this.user.email,
-          password: this.user.password
+          id: window.sessionStorage.getItem('user'),
+          contents: this.contents
         }
-        axios.post('/api/login', body)
+        axios.post('/api/postSave', body)
         .then(({data}) => {
           console.log(data)
           if(data.result) {
-            this.$router.push('/')
+            this.contents = null
+            this.getData()
           }
         })
         .catch(({message}) => {

@@ -11,13 +11,13 @@
         placeholder="비밀번호"
         type="password"
       />
-      <common-button
-        title="로그인"
-        @click="btnClick"
-      />
       <common-error
         :flag="error.flag"
         :message="error.message"
+      />      
+      <common-button
+        title="로그인"
+        @click="btnClick"
       />
       <router-link to="Register">
         회원가입
