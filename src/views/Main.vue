@@ -37,21 +37,55 @@ export default {
       }
     },
     created() {
+      this.checkAuth()
       this.getData()
     },
     methods: {
-        getData() {
-            axios.get('https://api.hnpwa.com/v0/news/1.json')
-            .then(({data}) => {
-              this.list = data
-            })
-            .catch(({message}) => {
-                console.log(message)
-            })
-        },
-        btnClick () {
+      checkAuth () {
+        let user = window.sessionStorage.getItem('user')
+        console.log(user)
+        if(this.emptyCheck(user)){
+          this.btnMessage = '작성하기'
+        }
+        else{
+          this.btnMessage = '로그인하고 작성하기'
+        }
+      },
+      getData() {
+        axios.get('https://api.hnpwa.com/v0/news/1.json')
+        .then(({data}) => {
+          this.list = data
+          })
+        .catch(({message}) => {
+            console.log(message)
+          })
+      },
+      btnClick () {
+        let user = window.sessionStorage.getItem('user')
+        if(this.emptyCheck(user)){
+          this.postData()
+        }else{
           this.$router.push('Login')
         }
+      },
+      postdata () {
+        let body = {
+          email: this.user.email,
+          password: this.user.password
+        }
+        axios.post('/api/login', body)
+        .then(({data}) => {
+          console.log(data)
+          if(data.result) {
+            this.$router.push('/')
+          }
+        })
+        .catch(({message}) => {
+          this.error.flag = true;
+          this.error.message = message
+          console.log(message)
+        })      
+      }
     }
 }
 </script>

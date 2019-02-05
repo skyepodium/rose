@@ -56,6 +56,7 @@ export default {
             .then(({data}) => {
                 console.log(data)
                 if(data.result) {
+                    window.sessionStorage.setItem('user', data.id)
                     this.$router.push('/')
                 }
             })
